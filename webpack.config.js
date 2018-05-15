@@ -31,7 +31,7 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {
     main: entryPoints,
-    vendor: [ 'vue', 'vuex' ]
+    vendor: [ 'vue', 'vuex', 'socket.io-client' ]
   },
   devtool: devtool,
   output: {
