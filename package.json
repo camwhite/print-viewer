@@ -1,0 +1,23 @@
+{
+  "name": "print-viewer",
+  "version": "1.0.0",
+  "description": "Remotely monitor 3d prints",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camwhite/print-viewer.git"
+  },
+  "keywords": [
+    "3d-print",
+    "raspberrypi"
+  ],
+  "author": "camwhite",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/camwhite/print-viewer/issues"
+  },
+  "homepage": "https://github.com/camwhite/print-viewer#readme"
+}
