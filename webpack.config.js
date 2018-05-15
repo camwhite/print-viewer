@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 let devtool
 
@@ -23,7 +24,6 @@ if (process.env.NODE_ENV !== 'production') {
 
   devtool = 'eval'
 } else {
-  plugins.push(new webpack.optimize.UglifyJsPlugin())
   devtool = false
 }
 
@@ -66,6 +66,21 @@ module.exports = {
       { test: /\.html$/, use: 'raw-loader' },
       { test: /\.scss$/, use: [ 'style-loader?singleton=true', 'css-loader', 'sass-loader' ] },
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] }
+    ]
+  },
+  optimization: {
+    minimizer: [
+      // we specify a custom UglifyJsPlugin here to get source maps in production
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
+      })
     ]
   },
   plugins: plugins
