@@ -1,7 +1,7 @@
 const app = require('./app')
 const sockets = require('./sockets')
 
-const port = 1337 || process.env.PORT
+const port = process.env.PORT || 1337
 const start = async () => {
   try {
     await app.listen(port)
