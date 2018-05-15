@@ -1,54 +1,17 @@
 'use strict'
 
 const path = require('path')
-const HappyPack = require('happypack')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const sharedHappyThreads = HappyPack.ThreadPool({ size: 1 })
 
 let devtool
 
 const entryPoints = [ path.join(__dirname, 'client', 'main.js') ]
 const plugins = [
   new VueLoaderPlugin(),
-  new HappyPack({
-    id: 'jsx/js',
-    loaders: [ 'babel-loader' ],
-    threadPool: sharedHappyThreads,
-    threads: 1,
-  }),
-  new HappyPack({
-    id: 'raw',
-    loaders: [ 'raw-loader' ],
-    threadPool: sharedHappyThreads,
-    threads: 1 
-  }),
-  new HappyPack({
-    id: 'pure-css',
-    loaders: [ 'css-loader'],
-    threadPool: sharedHappyThreads,
-    threads: 1
-  }),
-  new HappyPack({
-    id: 'sass',
-    loaders: [ 'sass-loader'],
-    threadPool: sharedHappyThreads,
-    threads: 1
-  }),
-  new HappyPack({
-    id: 'files',
-    loaders: [ 'file-loader'],
-    threadPool: sharedHappyThreads,
-    threads: 1
-  }),
   new webpack.DefinePlugin({
     __PROD__: process.env.NODE_ENV === 'production'
   }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    chunks: ['main'],
-    minChunks: module => /node_modules/.test(module.resource)
-  })
 ]
 
 if (process.env.NODE_ENV !== 'production') {
@@ -65,8 +28,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = {
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {
-    main: entryPoints
+    main: entryPoints,
+    vendor: [ 'vue', 'vuex' ]
   },
   devtool: devtool,
   output: {
