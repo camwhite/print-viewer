@@ -6,7 +6,7 @@ import 'buefy/lib/buefy.css'
 import App from './App'
 
 Vue.config.productionTip = false
-Vue.use(VueSocketio, io.connect('http://localhost:1337', {transports: ['websocket', 'polling']}))
+Vue.use(VueSocketio, io.connect('', {transports: ['websocket', 'polling']}))
 Vue.use(Buefy)
 
 new Vue({
