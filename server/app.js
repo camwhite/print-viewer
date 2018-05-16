@@ -6,13 +6,16 @@ const readFileAsync = promisify(fs.readFile)
 // Instantiate the app
 const app = require('fastify')()
 
-// Path to index
+// Statically serve public path
 const publicPath = path.join(__dirname, '../public')
+app.register(require('fastify-static'), { root: publicPath })
 
+// Middlewares
 if (process.env.NODE_ENV !== 'production') {
   app.use(require('morgan')('dev'))
 }
-app.register(require('fastify-static'), { root: publicPath })
+
+// Routes
 app.get('/', async (request, reply) => {
   reply.sendFile('index.html')
 })
