@@ -4,6 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 let devtool
 
@@ -19,7 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
   entryPoints.push('webpack-hot-middleware/client')
   plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new BundleAnalyzerPlugin()
   )
 
   devtool = 'eval'
@@ -31,9 +33,8 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {
     main: entryPoints,
-    vendor: [ 'vue', 'vuex', 'socket.io-client', 'buefy' ]
+    vendor: [ 'vue', 'socket.io-client' ]
   },
-  devtool: devtool,
   output: {
     path: path.resolve(__dirname, 'public', 'js'),
     publicPath: '/js',
@@ -64,22 +65,46 @@ module.exports = {
       },
       { test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/, use: 'file-loader' },
       { test: /\.html$/, use: 'raw-loader' },
-      { test: /\.scss$/, use: [ 'style-loader?singleton=true', 'css-loader', 'sass-loader' ] },
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ] }
     ]
   },
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          name: 'vendor',
+          chunks: 'all',
+          reuseExistingChunk: true,
+          priority: 1,
+          enforce: true,
+          test(module, chunks) {
+            const name = module.nameForCondition && module.nameForCondition();
+            return chunks.some(chunk => {
+              return chunk.name === 'main' && /[\\/]node_modules[\\/]/.test(name);
+            });
+          }
+        },
+        secondary: {
+          name: 'main',
+          chunks: 'all',
+          priority: 2,
+          enforce: true,
+          test(module, chunks) {
+            return chunks.some(chunk => chunk.name === 'secondary');
+          }
+        }
+      }
+    },
     minimizer: [
-      // we specify a custom UglifyJsPlugin here to get source maps in production
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
         uglifyOptions: {
-          compress: false,
+          compress: true,
           ecma: 6,
           mangle: true
         },
-        sourceMap: true
+        sourceMap: false
       })
     ]
   },

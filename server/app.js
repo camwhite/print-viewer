@@ -15,6 +15,7 @@ app.register(require('fastify-static'), { root: publicPath })
 if (process.env.NODE_ENV !== 'production') {
   app.use(require('morgan')('dev'))
 }
+app.use(require('compression')())
 
 // Routes
 app.get('/', (request, reply) => {
