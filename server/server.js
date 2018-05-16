@@ -5,6 +5,7 @@ const port = process.env.PORT || 1337
 const start = async () => {
   try {
     await app.listen(port)
+    console.log(`App listening on port ${port}`)
   } catch (err) {
     throw err
   }
