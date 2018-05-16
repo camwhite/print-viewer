@@ -11,7 +11,7 @@
     "start": "node server/server.js",
     "dev": "nodemon ./server/server.js --ignore 'client/*'",
     "build": "NODE_ENV=production webpack --config ./webpack.config.js --progress --colors",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",

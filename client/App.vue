@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ connect ? 'connected' : 'disconnected' }}
+    {{ connected ? 'connected' : 'disconnected' }}
   </div>
 </template>
 <script>
@@ -11,12 +11,15 @@ export default {
   name: 'App',
   sockets: {
     connect () {
-      this.connect = true
+      this.connected = true
+    },
+    disconnect () {
+      this.connected = false
     }
   },
   data () {
     return {
-      connect: false
+      connected: false
     }
   }
 }

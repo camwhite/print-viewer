@@ -1,3 +1,4 @@
+// Modules
 const fs = require('fs')
 const path = require('path')
 const { promisify } = require('util')
@@ -16,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Routes
-app.get('/', async (request, reply) => {
+app.get('/', (request, reply) => {
   reply.sendFile('index.html')
 })
 
