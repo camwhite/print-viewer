@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Remotely monitor 3d prints",
   "engines": {
-    "node": "8.9.0"
+    "node": "8.9.0",
+    "npm": "6.0.0"
   },
   "main": "server/server.js",
   "scripts": {
