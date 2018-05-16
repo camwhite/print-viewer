@@ -16,6 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(require('morgan')('dev'))
 }
 app.use(require('compression')())
+app.use(require('serve-favicon')(path.join(publicPath, 'favicon.ico')))
 
 // Routes
 app.get('/', (request, reply) => {
