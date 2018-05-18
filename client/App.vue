@@ -1,20 +1,24 @@
 <template>
   <div>
-    {{ connected ? 'connected' : 'disconnected' }}
+    <player></player>
   </div>
 </template>
 <script>
+import Player from './components/Player';
+
 if (module.hot) {
   module.hot.accept()
 }
+
 export default {
   name: 'App',
+  components: { Player },
   sockets: {
     connect () {
-      this.connected = true
+      this.$toast.open('connected')
     },
     disconnect () {
-      this.connected = false
+      this.$toast.open('disconnected')
     }
   },
   data () {

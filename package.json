@@ -8,10 +8,9 @@
   },
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "NODE_ENV=production node server/server.js",
     "dev": "nodemon ./server/server.js --ignore 'client/*'",
-    "build": "NODE_ENV=production webpack --config ./webpack.config.js --progress --colors",
-    "heroku-postbuild": "npm run build"
+    "build": "NODE_ENV=production webpack --config ./webpack.config.js --progress --colors"
   },
   "repository": {
     "type": "git",
@@ -36,8 +35,7 @@
     "socket.io": "^2.1.0",
     "socket.io-client": "^2.1.0",
     "vue": "^2.5.16",
-    "vue-socket.io": "^2.1.1-b",
-    "vuex": "^3.0.1"
+    "vue-socket.io": "^2.1.1-b"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -46,10 +44,8 @@
     "css-loader": "^0.28.7",
     "file-loader": "^0.11.2",
     "morgan": "^1.9.0",
-    "node-sass": "^4.5.3",
     "nodemon": "^1.12.0",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^6.0.6",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2",
     "style-loader": "^0.18.2",

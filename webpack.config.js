@@ -33,7 +33,7 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {
     main: entryPoints,
-    vendor: [ 'vue', 'socket.io-client' ]
+    vendor: [ 'vue', 'buefy', 'socket.io-client' ]
   },
   output: {
     path: path.resolve(__dirname, 'public', 'js'),
